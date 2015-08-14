@@ -1,0 +1,16 @@
+#include <windows.h>
+#include <tchar.h>
+#include <stdio.h>
+
+int main(void)
+{
+TCHAR nameBuf[MAX_COMPUTERNAME_LENGTH + 2];
+DWORD nameBufSize;
+
+nameBufSize = sizeof nameBuf - 1;
+if (GetComputerName(nameBuf, &nameBufSize) == TRUE) {
+_tprintf(_T("Your computer name is %s\n"), nameBuf);
+}
+
+return 0;
+}
