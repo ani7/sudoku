@@ -1,0 +1,94 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <time.h>
+#include <windows.h>
+#include <iphlpapi.h>
+#include <stdio.h>
+#include "XmlWriter.h"
+
+using namespace std;
+
+void writeXml();
+//void getMac();
+void getCurrentDate();
+
+int main()
+{
+    int month,day,year;
+    cout << "Hello world!" << endl;
+    writeXml();
+    getCurrentDate();
+    return 0;
+}
+void writeXml()
+{
+
+    XmlWriter xml;
+
+  xml.open ("newXML.xml");
+
+        xml.writeOpenTag("testTag");
+        xml.writeStartElementTag("testEle1");
+        xml.writeString("This is my first tag string!");
+        xml.writeEndElementTag();
+        xml.writeCloseTag();
+
+        xml.writeOpenTag("testTag2");
+        xml.writeStartElementTag("testEle2");
+        xml.writeAttribute("testAtt=\"TestAttribute\"");
+        xml.writeString("I sometimes amaze myself.");
+        xml.writeEndElementTag();
+        xml.writeCloseTag();
+
+        xml.writeOpenTag("testTag3");
+        xml.writeStartElementTag("testEle3");
+        xml.writeAttribute("testAtt2=\"TestAttrib2\"");
+        xml.writeString("Though i'm sure someone can make something even better");
+        xml.writeEndElementTag();
+        xml.writeCloseTag();
+
+
+
+
+        xml.close();
+        std::cout << "Success!\n";
+    }
+
+
+
+
+
+void getCurrentDate()
+{
+    time_t theTime = time(NULL);
+    struct tm *aTime = localtime(&theTime);
+
+    int day = aTime->tm_mday;
+    int month = aTime->tm_mon + 1;
+    int year = aTime->tm_year + 1900;
+}
+
+
+//void getMac()
+//{
+//    IP_ADAPTER_INFO *info = NULL, *pos;
+//    DWORD size = 0;
+//
+//    GetAdaptersInfo(info, &size);
+//
+//    info = (IP_ADAPTER_INFO *)malloc(size);
+//
+//    GetAdaptersInfo(info, &size);
+//
+//    for (pos=info; pos!=NULL; pos=pos->Next) {
+//        printf("\n%s\n\t", pos->Description);
+//        printf("%2.2x", pos->Address[0]);
+//        for (unsigned int i=1; i<pos->AddressLength; i++)
+//            printf(":%2.2x", pos->Address[i]);
+//    }
+//
+//    free(info);
+//
+//
+//}
